@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{952D56B5-A0C6-4A37-91AB-3F4F4F5281FA}") = "KeePassLibCore", "KeePassLib\KeePassLibCore.csproj", "{FDBC6DB4-65AB-403A-9D74-38D9402D8C83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeePassLib.Tests", "KeePassLib.Tests\KeePassLib.Tests.csproj", "{06A3408A-88BB-4CED-8B10-B4978FE1C079}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -11,5 +13,9 @@ Global
 		{FDBC6DB4-65AB-403A-9D74-38D9402D8C83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FDBC6DB4-65AB-403A-9D74-38D9402D8C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDBC6DB4-65AB-403A-9D74-38D9402D8C83}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{06A3408A-88BB-4CED-8B10-B4978FE1C079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A3408A-88BB-4CED-8B10-B4978FE1C079}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06A3408A-88BB-4CED-8B10-B4978FE1C079}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06A3408A-88BB-4CED-8B10-B4978FE1C079}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
