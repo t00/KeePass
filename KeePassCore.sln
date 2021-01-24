@@ -1,0 +1,15 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{952D56B5-A0C6-4A37-91AB-3F4F4F5281FA}") = "KeePassLibCore", "KeePassLib\KeePassLibCore.csproj", "{FDBC6DB4-65AB-403A-9D74-38D9402D8C83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FDBC6DB4-65AB-403A-9D74-38D9402D8C83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDBC6DB4-65AB-403A-9D74-38D9402D8C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDBC6DB4-65AB-403A-9D74-38D9402D8C83}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal

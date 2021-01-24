@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Company>Dominik Reichl</Company>
+    <Product>KeePassLib</Product>
+    <AssemblyVersion>2.47</AssemblyVersion>
+    <FileVersion>2.47.0.0</FileVersion>
+    <RootNamespace>KeePassLib</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DefineConstants>TRACE;</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DefineConstants>TRACE;</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+    <Compile Remove="Utility\MessageService.cs" />
+    <Compile Remove="Translation\**" />
+    <Compile Remove="Utility\MonoWorkarounds.cs" />
+    <Compile Remove="Native\ClipboardU.cs" />
+    <Compile Remove="Native\NativeLib.cs" />
+    <Compile Remove="Native\NativeMethods.cs" />
+    <Compile Remove="Native\NativeMethods.Unix.cs" />
+    <Compile Remove="Native\SimpleStat.cs" />
+    <Compile Remove="Serialization\FileTransactionEx.cs" />
+    <Compile Remove="Cryptography\KeyDerivation\AesKdf.GCrypt.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Translation\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Translation\**" />
+  </ItemGroup>
+</Project>
