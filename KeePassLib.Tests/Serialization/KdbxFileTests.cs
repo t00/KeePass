@@ -108,7 +108,7 @@ namespace KeePassLib.Tests.Serialization
             {
                 var database = new PwDatabase();
                 database.New(new IOConnectionInfo(), new CompositeKey());
-                var date = DateTime.Parse(testDate);
+                var date = DateTime.Parse(testDate).ToUniversalTime();
                 PwDatabase.LocalizedAppName = testLocalizedAppName;
                 database.Name = testDatabaseName;
                 database.NameChanged = date;
