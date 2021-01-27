@@ -6260,5 +6260,35 @@ namespace KeePass.Forms
 			else UpdateUI(false, null, pd.UINeedsIconUpdate, null,
 				pd.UINeedsIconUpdate, null, false);
 		}
+
+#if DEBUG
+		private void ConstructDebugMenu()
+		{
+			ToolStripMenuItem tsmiDebug = new ToolStripMenuItem("Debug");
+			m_menuTools.DropDownItems.Insert(m_menuTools.DropDownItems.IndexOf(
+				m_menuToolsAdv) + 1, tsmiDebug);
+
+			ToolStripMenuItem tsmi = new ToolStripMenuItem("Set Database Custom Data Items (KDBX 4.1)");
+			tsmiDebug.DropDownItems.Add(tsmi);
+			tsmi.Click += delegate(object sender, EventArgs e)
+			{
+				PwDatabase pd = m_docMgr.ActiveDatabase;
+				if((pd == null) || !pd.IsOpen) return;
+
+				Random r = Program.GlobalRandom;
+				byte[] pb = new byte[12];
+				Action<string> f = delegate(string str)
+				{
+					r.NextBytes(pb);
+					pd.CustomData.Set("Test_" + str, Convert.ToBase64String(pb),
+						DateTime.UtcNow.AddSeconds(-(r.Next() % 604800)));
+				};
+
+				for(char ch = 'A'; ch < 'E'; ++ch) f(ch.ToString());
+
+				UpdateUIState(true);
+			};
+		}
+#endif
 	}
 }

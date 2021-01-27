@@ -1,3 +1,27 @@
+YYYY-MM-DD: 2.48
+- New KDBX 4.1 file format, which supports various new features
+  (listed below)
+- The last modification time of a database-specific custom data
+  item (by a plugin/port) is now saved (KDBX 4.1)
+- When synchronizing databases, database-specific custom data
+  items (by plugins/ports) are now merged based on their last
+  modification times
+
+- The placeholders {HMACOTP} and {TIMEOTP} now automatically
+  add padding to shared secrets in Base32 encoding, if
+  necessary
+- Improved error handling of the placeholders {HMACOTP} and
+  {TIMEOTP}
+- Improved merging of custom data items (by plugins/ports) in
+  the KDBX file header
+- Improved version display in the 'About' dialog
+- On 64-bit operating systems, the registry value for the setup
+  option 'Optimize KeePass start-up performance' is now created
+  in the 64-bit view of the registry
+- ShInstUtil now fully supports Unicode
+- Various code optimizations
+- Minor other improvements
+
 2021-01-09: 2.47
 - In the 'Find' dialog, search parameters can now be saved as
   profiles; the profiles can be accessed quickly via the main

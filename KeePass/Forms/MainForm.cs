@@ -159,6 +159,9 @@ namespace KeePass.Forms
 			// m_imgFileSaveAllEnabled = Properties.Resources.B16x16_File_SaveAll;
 			// m_imgFileSaveAllDisabled = Properties.Resources.B16x16_File_SaveAll_Disabled;
 
+#if DEBUG
+			ConstructDebugMenu();
+#endif
 			ConstructContextMenus();
 
 			// m_ilCurrentIcons = m_ilClientIcons;
@@ -723,8 +726,8 @@ namespace KeePass.Forms
 				pg.AddEntry(pe, true);
 			}
 
-			pd.CustomData.Set("Sample Custom Data 1", "0123456789");
-			pd.CustomData.Set("Sample Custom Data 2", "\u00B5y data");
+			pd.CustomData.Set("Sample Custom Data 1", "0123456789", null);
+			pd.CustomData.Set("Sample Custom Data 2", "\u00B5y data", null);
 
 			// pd.PublicCustomData.SetString("Sample Custom Data", "Sample Value");
 #endif

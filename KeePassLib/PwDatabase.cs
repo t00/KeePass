@@ -95,7 +95,7 @@ namespace KeePassLib
 		private int m_nHistoryMaxItems = DefaultHistoryMaxItems;
 		private long m_lHistoryMaxSize = DefaultHistoryMaxSize; // In bytes
 
-		private StringDictionaryEx m_dCustomData = new StringDictionaryEx();
+		private StringDictionaryEx m_dCustomData = new StringDictionaryEx(true);
 		private VariantDictionary m_dPublicCustomData = new VariantDictionary();
 
 		private byte[] m_pbHashOfFileOnDisk = null;
@@ -571,7 +571,7 @@ namespace KeePassLib
 			m_nHistoryMaxItems = DefaultHistoryMaxItems;
 			m_lHistoryMaxSize = DefaultHistoryMaxSize;
 
-			m_dCustomData = new StringDictionaryEx();
+			m_dCustomData = new StringDictionaryEx(true);
 			m_dPublicCustomData = new VariantDictionary();
 
 			m_pbHashOfFileOnDisk = null;
@@ -1506,13 +1506,35 @@ namespace KeePassLib
 
 			foreach(KeyValuePair<string, string> kvp in pdSource.m_dCustomData)
 			{
-				if(bSourceNewer || !m_dCustomData.Exists(kvp.Key))
-					m_dCustomData.Set(kvp.Key, kvp.Value);
+				DateTime? odtT = m_dCustomData.GetLastModificationTime(kvp.Key);
+				DateTime? odtS = pdSource.m_dCustomData.GetLastModificationTime(kvp.Key);
+
+				if(bForce)
+					m_dCustomData.Set(kvp.Key, kvp.Value, odtS);
+				else if(odtT.HasValue && odtS.HasValue)
+				{
+					if(odtS.Value > odtT.Value)
+						m_dCustomData.Set(kvp.Key, kvp.Value, odtS);
+				}
+				else if(odtT.HasValue) { } // Assume T > S (newer KeePass version)
+				else if(odtS.HasValue)
+					m_dCustomData.Set(kvp.Key, kvp.Value, odtS);
+				else
+				{
+					if(bSourceNewer || !m_dCustomData.Exists(kvp.Key))
+						m_dCustomData.Set(kvp.Key, kvp.Value, null);
+				}
 			}
 
-			VariantDictionary vdLocal = m_dPublicCustomData; // Backup
-			m_dPublicCustomData = (VariantDictionary)pdSource.m_dPublicCustomData.Clone();
-			if(!bSourceNewer) vdLocal.CopyTo(m_dPublicCustomData); // Merge
+			// 'Clone' duplicates deep values (e.g. byte arrays)
+			VariantDictionary vdS = (VariantDictionary)pdSource.m_dPublicCustomData.Clone();
+			if(bForce || bSourceNewer)
+				vdS.CopyTo(m_dPublicCustomData);
+			else
+			{
+				m_dPublicCustomData.CopyTo(vdS);
+				m_dPublicCustomData = vdS;
+			}
 		}
 
 		private void MergeEntryHistory(PwEntry pe, PwEntry peSource,

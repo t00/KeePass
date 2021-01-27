@@ -88,6 +88,7 @@ namespace KeePassLib.Serialization
 		private byte[] m_pbCustomIconData = null;
 		private string m_strCustomDataKey = null;
 		private string m_strCustomDataValue = null;
+		private DateTime? m_odtCustomDataLastMod = null;
 		private string m_strGroupCustomDataKey = null;
 		private string m_strGroupCustomDataValue = null;
 		private string m_strEntryCustomDataKey = null;
@@ -342,6 +343,8 @@ namespace KeePassLib.Serialization
 						m_strCustomDataKey = ReadString(xr);
 					else if(xr.Name == ElemValue)
 						m_strCustomDataValue = ReadString(xr);
+					else if(xr.Name == ElemLastModTime)
+						m_odtCustomDataLastMod = ReadTime(xr);
 					else ReadUnknown(xr);
 					break;
 
@@ -615,11 +618,13 @@ namespace KeePassLib.Serialization
 			else if((ctx == KdbContext.CustomDataItem) && (xr.Name == ElemStringDictExItem))
 			{
 				if((m_strCustomDataKey != null) && (m_strCustomDataValue != null))
-					m_pwDatabase.CustomData.Set(m_strCustomDataKey, m_strCustomDataValue);
+					m_pwDatabase.CustomData.Set(m_strCustomDataKey,
+						m_strCustomDataValue, m_odtCustomDataLastMod);
 				else { Debug.Assert(false); }
 
 				m_strCustomDataKey = null;
 				m_strCustomDataValue = null;
+				m_odtCustomDataLastMod = null;
 
 				return KdbContext.CustomData;
 			}

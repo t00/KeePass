@@ -136,7 +136,7 @@ namespace KeePass.DataExchange.Formats
 			try
 			{
 				KdbxFile kdbx = new KdbxFile(pd);
-				kdbx.ForceVersion = KdbxFile.FileVersion32_3;
+				kdbx.ForceVersion = KdbxFile.FileVersion32_3_1;
 				kdbx.Save(sOutput, pgRoot, KdbxFormat.Default, slLogger);
 			}
 			finally

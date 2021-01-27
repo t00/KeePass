@@ -593,7 +593,7 @@ namespace KeePassLib.Serialization
 
 			foreach(AutoTypeAssociation a in cfgAutoType.Associations)
 				WriteObject(ElemAutoTypeItem, ElemWindow, ElemKeystrokeSequence,
-					new KeyValuePair<string, string>(a.WindowName, a.Sequence));
+					new KeyValuePair<string, string>(a.WindowName, a.Sequence), null);
 
 			m_xmlWriter.WriteEndElement();
 		}
@@ -667,7 +667,13 @@ namespace KeePassLib.Serialization
 			m_xmlWriter.WriteStartElement(name);
 
 			foreach(KeyValuePair<string, string> kvp in value)
-				WriteObject(ElemStringDictExItem, ElemKey, ElemValue, kvp);
+			{
+				DateTime? odtLastMod = null;
+				if(m_uFileVersion >= FileVersion32_4_1)
+					odtLastMod = value.GetLastModificationTime(kvp.Key);
+
+				WriteObject(ElemStringDictExItem, ElemKey, ElemValue, kvp, odtLastMod);
+			}
 
 			m_xmlWriter.WriteEndElement();
 		}
@@ -786,17 +792,21 @@ namespace KeePassLib.Serialization
 			else WriteObject(name, TimeUtil.SerializeUtc(value), false);
 		}
 
-		private void WriteObject(string name, string strKeyName,
-			string strValueName, KeyValuePair<string, string> kvp)
+		private void WriteObject(string name, string strKeyName, string strValueName,
+			KeyValuePair<string, string> kvp, DateTime? odtLastMod)
 		{
 			m_xmlWriter.WriteStartElement(name);
 
 			m_xmlWriter.WriteStartElement(strKeyName);
 			m_xmlWriter.WriteString(StrUtil.SafeXmlString(kvp.Key));
 			m_xmlWriter.WriteEndElement();
+
 			m_xmlWriter.WriteStartElement(strValueName);
 			m_xmlWriter.WriteString(StrUtil.SafeXmlString(kvp.Value));
 			m_xmlWriter.WriteEndElement();
+
+			if(odtLastMod.HasValue)
+				WriteObject(ElemLastModTime, odtLastMod.Value);
 
 			m_xmlWriter.WriteEndElement();
 		}
