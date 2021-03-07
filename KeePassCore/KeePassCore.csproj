@@ -17,4 +17,17 @@
     <ItemGroup>
       <ProjectReference Include="..\KeePassLib\KeePassLibCore.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Views\GroupTreeView.axaml.cs">
+        <DependentUpon>GroupTreeView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\MainWindow - Copy.axaml.cs">
+        <DependentUpon>MainWindow - Copy.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\GroupTreeView.axaml.cs">
+        <DependentUpon>Views.axaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>
